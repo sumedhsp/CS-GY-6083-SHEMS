@@ -1,0 +1,78 @@
+{%   extends 'accounts/main.html'  %}
+
+{% block content %}
+
+<div class="" style="display: flex; justify-content: center; align-items: center; height: 80vh">
+<div>
+
+{% for message in messages %}
+<br>
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+{% endfor %}
+
+<h3 class="">Create Your Account!</h3>
+<form method="post" action="/signup/">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Ex: Tandon123" Required>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" Required>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" Required>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+            <label for="phone">Mobile No:</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="999-999-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
+        </div>
+        </div>
+   
+    <div class="col"> 
+        <div class="form-group">
+        <label for="dob">DOB:</label>
+        <input type="date" class="form-control" id="dob" name="trip-start" placeholder="1999-12-23" min="" max="" />
+        </div>
+    </div>
+</div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="*****@****.com/in/edu...." Required>
+    </div>
+    <div class="form-group">
+        <label for="pass1">Password</label>
+        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Create Your Password" Required>
+    </div>
+    <div class="form-group">
+        <label for="pass2">Confirm Password</label>
+        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password" Required>
+    </div>
+    <button type="submit" class="btn btn-outline-dark">Sign Up</button>
+</form>
+
+</div>
+</div>
+
+
+<br>
+
+
+{% endblock %}

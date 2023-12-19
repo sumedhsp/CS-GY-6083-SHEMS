@@ -1,0 +1,48 @@
+svg: #899BA4
+
+
+
+<table class="table table-hover">
+
+    <tr>
+        
+        <th>Label</th>
+        <th>Address</th>
+        <th>View Devices</th>
+         <th>Add Device</th>
+         <th>Visualize</th>
+     </tr>
+    
+    <tr>
+        <td>My Home</td>
+        <td>ABC 1234</td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-view-list"></i>View</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-plugin"></i> Quick Add</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-bar-chart"></i></button></td>
+    </tr>
+
+    <tr>
+        <td>Home 1</td>
+        <td>ABC 1234</td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-view-list"></i>View</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-plugin"></i> Quick Add</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-bar-chart"></i></button></td>
+    </tr>
+    
+    <tr>
+        <td>Home 2</td>
+        <td>ABC 1234</td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-view-list"></i>View</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-plugin"></i> Quick Add</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-bar-chart"></i></button></td>
+    </tr>
+    
+    <tr>
+        <td>Farm House</td>
+        <td>ABC 1234</td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-view-list"></i>View</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-plugin"></i> Quick Add</button></td>
+        <td><button type="button" class="btn btn-outline-dark"><i class="bi bi-bar-chart"></i></button></td>
+    </tr>
+
+  </table>

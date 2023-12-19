@@ -1,0 +1,341 @@
+{%   extends 'accounts/main.html'  %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="container">
+    
+<div>
+    {% for message in messages %}
+    <br>
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Message:</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+<!-- content display if user is not authenticated -->
+<!-- not user.is_authenticated -->
+{% if False %}
+
+<br><br><br><br><br>
+
+
+<h1 class="display-3">Hello, New York!</h1>
+<h2 >We welcome you to Tandon Smart Home Energy Management System!</h2>
+<h3 class="lead">Our Analytics help you in...</h3>
+<h5 class="lead">Cutting Costs on your Energy Consumption!</h5>
+<h6 class="text-muted">{{ today }}</h6>
+<h3></h3>
+
+<div class="row">
+    <div class="col-auto">
+        <a href="/signup" class="btn btn-outline-dark">Sign Up</a>
+    </div>
+    <div class="col-auto">
+        <a href="/signin" class="btn btn-outline-dark">Sign In</a>
+    </div>
+    
+</div>
+
+
+
+
+{% endif %}
+
+</div>
+
+
+
+
+<!-- content display if user is authenticated (Need to remove not after front end) -->
+<!-- Remove this comment later, as now need to bypass to work on the service location part. -->
+{% if True  %}
+
+<br>
+
+<h3 class="display-4">Hola, {{customerObject.first_name}}!</h3>
+<!-- <h4>You're successfully logged in.</h4>
+<button type="submit" class="btn btn-outline-dark"><a href="/signout">SignOut</a></button> -->
+
+<br>
+
+
+<div class="card" style="width: 100%">
+    <div class="card-header">
+
+        <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+            My Account Details <i class="bi bi-person"></i>
+        </button>
+
+    </div>
+
+
+
+<div class="collapse" id="collapse1">
+    <ul class="list-group list-group-flush">
+        <div class="row">
+            <div class="col">
+                <li class="list-group-item">First Name: {{ customerObject.first_name }}</li>
+            </div>
+            <div class="col">
+                <li class="list-group-item">Last Name: {{ customerObject.last_name }}</li>
+            </div>
+        </div>
+        <li class="list-group-item">Mob No:</li>
+        <li class="list-group-item">DOB:</li>
+        <li class="list-group-item">Email:</li>
+        <li class="list-group-item">Billing Address: {{ customerObject.unit_number }}, {{ customerObject.address_line }} </li>
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+  <br>
+
+<div class="row">
+    <div class="col-6 col-md-9">
+        <h3>My Service Locations:</h3>
+    </div>
+    <div class="col"> <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal"><i class="bi bi-house-add-fill"></i> Add Service Location</button>
+        
+
+        <!-- Modal Box to add Service Locations -->
+
+<!-- Button trigger modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+<div class="modal-content">
+<div class="modal-header">
+<h3 class="modal-title fs-5" id="exampleModalLabel">Your New Service Location</h3>
+<button type="button" class="btn btn-outline-dark" data-dismiss="modal" aria-label="Close">X</button>
+</div>
+<div class="modal-body">
+
+    <!-- ***********************Add service Location Form ************************* -->
+    <form action="">
+
+        <div class="row">
+            <div class="col">       
+             <div class="form-group">
+                <label for="start">Start Date:</label>
+                <input type="date" class="form-control" id="start" name="start" value="" min="" max="" required/>
+            </div></div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="unitno">Unit No:</label>
+                    <input type="number" class="form-control" id="unitno" name="unitno" min="0" max="" required/>
+                </div>
+
+            </div>
+        </div>
+
+
+         <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="area">Area(sqft):</label>
+                    <input type="number" class="form-control" id="area" name="area" min="10" max="100" required/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="bedno">Bedrooms No:</label>
+                    <input type="number" class="form-control" id="bedno" name="bedno" min="1" max="100" required/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="occno">Occupants No:</label>
+                    <input type="number" class="form-control" id="occno" name="occno" min="1" max="" required/>
+                </div>
+            </div>
+         </div>
+
+
+
+        <div class="form-group">
+        <label for="addline">Address Line:</label>
+        <input type="text" class="form-control" id="addline" name="addline" placeholder="1752 70th street" minlength="" maxlength="" size="" required/>
+        </div>
+
+        <div class="row">
+            <div class="col">        
+                <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Brooklyn" minlength="" maxlength="" size="" required/>
+            </div>
+        </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <input type="text" class="form-control" id="state" name="state" placeholder="New York" minlength="2" maxlength="20" size="" required/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="zip">ZipCode:</label>
+                    <input type="number" class="form-control" id="zip" name="zip" placeholder="11204" min="" max="" required/>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success">Save</button>
+            </div>
+
+
+    </form>
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+  <br>
+
+
+     <!-- Service Location Cards  -->
+
+         <!-- Service Location Cards  -->
+
+         <div class="row mb-2">
+          {% for combinedObject in serviceLocationObject %}
+          <div class="col"><div class="card" style="width: 18rem;">
+              <img src="{% static 'images/houseyellow.png' %}" class="card-img-top" alt="My Home">
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col p-2 ml-2"><h5 class="card-title">Home</h5></div>
+                      <div class="col"><button type="button" class="btn btn-outline-dark"><i class="bi bi-bar-chart"></i></button></div>
+                  </div>
+  
+                <p class="card-text">{{combinedObject.serviceLocation.city }}, {{combinedObject.serviceLocation.state }}, {{combinedObject.serviceLocation.zipcode}}</p>
+                
+                <h5>Devices</h5>
+                <div class="row">
+                  <div class="col"><a href="devices/"><button type="button" class="btn btn-outline-dark"><i class="bi bi-view-list"></i> {{ combinedObject.device_count }}</button></a></div>
+
+                  <div class="col"><button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#staticBackdrop"><i class="bi bi-plugin"></i> Quick Add</button></div>
+  
+                </div>
+                
+                
+              </div>
+            </div></div>
+            {% endfor %}  
+       </div>
+
+
+
+
+     <!-- Device Quick Add Modal -->
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Your New Device</h1>
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal" aria-label="Close">X</button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                <label for="devtype">Device Type:</label>
+                <select id="devtype" name="devtype" class="form-select form-control" aria-label="Default select example" required>
+                  <option value="1">Air Dryer</option>
+                  <option value="2">Refrigerator</option>
+                  <option value="3">Smart Bulb</option>
+                </select>
+              </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="modno">Model Number:</label>
+                <select id="modno" name="modno" class="form-select form-control" aria-label="Default select example" required>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+  
+              </div>
+            </div>
+            
+  
+  
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                <label for="brand">Brand:</label>
+                <select id="brand" name="brand" class="form-select form-control" aria-label="Default select example" required>
+                  <option value="1">LG</option>
+                  <option value="2">Revlon</option>
+                  <option value="3">Samsung</option>
+                </select>
+              </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                <label for="relyear">Release Year:</label>
+                <input type="number" class="form-control" id="relyear" name="relyear" min="" max="" required/>
+              </div>
+      
+  
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="manyear">Manufacture Year:</label>
+                  <input type="number" class="form-control" id="manyear" name="manYear" min="" max="" required/>
+                </div>
+  
+        
+      
+              </div>
+            </div>
+  
+  
+  
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success">Save</button>
+            </div>
+  
+  
+  
+  
+          </form>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endif %}
+
+<br><br><br><br><br><br>
+</div>
+{% endblock %}
+
