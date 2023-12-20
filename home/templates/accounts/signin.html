@@ -1,39 +1,79 @@
-{%   extends 'accounts/main.html'  %}
+{% extends 'accounts/main.html' %} {% load static %} {% block content %}
 
-{% block content %}
+<div class="container m-auto">
+  <div>
+    {% for message in messages %}
 
-<div class="container" style="display: flex; justify-content: center; align-items: center; height: 80vh">
-<div>
-
-{% for message in messages %}
-<br>
-<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-    <strong>Message:</strong> {{ message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-{% endfor %}
-
-
-    <h3>Log In</h3>
-
-<form method="post" action="/signin/" class="">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" Required>
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      <strong>Message:</strong> {{ message }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    <div class="form-group">
-        <label for="pass1">Password</label>
-        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Your Password" Required>
+    {% endfor %}
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div
+      class="p-4 row justify-content-center align-items-center bg-light text-center rounded"
+      style="
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+          rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      "
+    >
+      <div class="col-auto">
+        <img
+          src="{% static 'images/signin.svg' %}"
+          alt="SignIn"
+          height="250rem"
+        />
+      </div>
+      <div class="col-auto">
+        <h3>Log In</h3>
+
+        <form method="post" action="{% url 'signin' %}" class="">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="username">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="Enter Your Username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="pass1">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="pass1"
+              name="pass1"
+              placeholder="Enter Your Password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-dark">Log In</button>
+        </form>
+      </div>
     </div>
-
-    <button type="submit" class="btn btn-outline-dark">Log In</button>
-</form>
-
-</div>
-
+  </div>
 </div>
 
 {% endblock %}

@@ -1,33 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse row" id="navbarTogglerDemo01">
+    <div class="col-md-auto">
+      <a class="navbar-brand mb-0 h1" href="{% url 'home' %}"
+        ><i class="bi bi-lightning-fill"></i> Tandon's SHEMS</a
+      >
+    </div>
 
-    <div class="col-lg-9 col-md-7">
-    <a class="navbar-brand mb-0 h1" href="#">Tandon's SHEMS</a>
-  </div>
-
-  <div class="col ">
-    
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0 row">
-        <li class="nav-item active col-auto">
-          <a class="nav-link" href="/home/">Home</a>
+    <div class="col-md-auto ml-auto">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
         </li>
-        {% if not user.is_authenticated %}
-        <li class="nav-item col-auto">
-          <a class="nav-link" href="/signin/">Sign In</a>
+        {% if not user_active %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signin' %}">Sign In</a>
         </li>
-        <li class="nav-item col-auto">
-          <a class="nav-link" href="/signup/">Sign Up</a>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
         </li>
-        {% endif %}
-        {% if user.is_authenticated %}
-        <button type="submit" class="btn btn-light"><a href="/signout">Sign Out</a></button>
+        {% endif %} {% if user_active %}
+        <a href="{% url 'signout' %}"
+          ><button type="submit" class="btn btn-dark">Sign Out</button></a
+        >
         {% endif %}
       </ul>
     </div>
-
   </div>
-
 </nav>

@@ -31,7 +31,7 @@ class Customers(models.Model):
 
 
 class Device(models.Model):
-    model_id = models.CharField(primary_key=True, max_length=100)
+    model_id = models.AutoField(primary_key=True)
     device_type = models.CharField(max_length=100)
     model_number = models.CharField(max_length=100)
     brand = models.CharField(max_length=100)
@@ -87,4 +87,5 @@ class Servicelocations(models.Model):
     num_occupants = models.IntegerField()
 
     class Meta:
-        managed = Falsedb_table = 'servicelocations'
+        managed = False
+        db_table = 'servicelocations'

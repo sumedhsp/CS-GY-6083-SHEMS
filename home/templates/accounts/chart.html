@@ -1,0 +1,21 @@
+{% extends 'accounts/main.html' %}
+
+
+
+{% block content %}
+
+<div id='chart-container'>
+    {{ chart_json | safe }}
+</div>
+
+<!--
+<script>
+
+    var chartContainer = document.getElementById('chart-container');
+    var chartJson = {{ chart_json | safe }};
+    Plotly.newPlot(chartContainer, JSON.parse(chartJson));
+
+</script>  
+-->
+
+{% endblock content %}

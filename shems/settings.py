@@ -30,6 +30,12 @@ SECRET_KEY = 'django-insecure-k)&)07k8*8_tyz5rgql84um2950@zhh_%^e1z1ii#xtva59(l0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+## SESSION DETAILS
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'my_session_cookie'
+# Session Limit (Timeout) set to 1hr
+SESSION_COOKIE_AGE = 3600
+
 ALLOWED_HOSTS = []
 
 
@@ -55,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'shems.urls'

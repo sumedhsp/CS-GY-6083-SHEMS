@@ -1,78 +1,260 @@
-{%   extends 'accounts/main.html'  %}
+{% extends 'accounts/main.html' %} {% block content %}
 
-{% block content %}
-
-<div class="" style="display: flex; justify-content: center; align-items: center; height: 80vh">
-<div>
-
-{% for message in messages %}
-<br>
-<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-    <strong>Message:</strong> {{ message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-{% endfor %}
-
-<h3 class="">Create Your Account!</h3>
-<form method="post" action="/signup/">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Ex: Tandon123" Required>
+<div class="container">
+  <div>
+    {% for message in messages %}
+    <br />
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      <strong>Message:</strong> {{ message }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    <div class="row">
-        <div class="col">
+    {% endfor %}
+
+    <div
+      class="p-4 mt-4 bg-light text-center rounded"
+      style="
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+          rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      "
+    >
+      <h1 class="">Create Your Account!</h1>
+      <br />
+      <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+
+        <div class="row">
+          <div
+            class="col m-2 p-2 bg-light border border-white rounded"
+            style="
+              box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+                rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            "
+          >
+            <!-- for Account details -->
+            <h4>Details</h4>
+
             <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" Required>
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="*****@****.com/in/edu"
+                required
+              />
             </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" Required>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="fname">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fname"
+                    name="fname"
+                    placeholder="Enter Your First Name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="lname">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lname"
+                    name="lname"
+                    placeholder="Enter Your Last Name"
+                    required
+                  />
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
-   
-    <div class="row">
-        <div class="col">
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="phone">Mobile No:</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    placeholder="999-999-9999"
+                  />
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="dob">DOB:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="dob"
+                    name="dob"
+                    placeholder="1999-12-23"
+                    min=""
+                    max=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col m-2 p-2 bg-light border border-white rounded"
+            style="
+              box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+                rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            "
+          >
+            <!-- for Billing Address -->
+            <h4>Billing Address</h4>
+
+            {% comment %} <div class="row"> {% endcomment %}
+              
+                <div class="form-group">
+                  <label for="unitno">Unit No:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="unitno"
+                    name="unitno"
+                    min="0"
+                    max=""
+                    required
+                  />
+                </div>
+
+
+            {% comment %} </div> {% endcomment %}
+
+
             <div class="form-group">
-            <label for="phone">Mobile No:</label>
-            <input type="tel" class="form-control" id="phone" name="phone" placeholder="999-999-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"/>
+              <label for="addline">Address Line:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="addline"
+                name="addline"
+                placeholder="1752 70th street"
+                minlength=""
+                maxlength=""
+                size=""
+                required
+              />
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="city">City:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    name="city"
+                    placeholder="Brooklyn"
+                    minlength=""
+                    maxlength=""
+                    size=""
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="state">State:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="state"
+                    name="state"
+                    placeholder="New York"
+                    minlength="2"
+                    maxlength="20"
+                    size=""
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="zip">ZipCode:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="zip"
+                    name="zip"
+                    placeholder="11204"
+                    min=""
+                    max=""
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div
+          class="row m-1 p-1 bg-light border border-white rounded"
+          style="
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+              rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+          "
+        >
+          <div class="col">
+            <div class="form-group">
+              <label for="pass1">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="pass1"
+                name="pass1"
+                placeholder="Create Your Password"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="pass2">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="pass2"
+                name="pass2"
+                placeholder="Confirm Your Password"
+                required
+              />
+            </div>
+          </div>
         </div>
-   
-    <div class="col"> 
-        <div class="form-group">
-        <label for="dob">DOB:</label>
-        <input type="date" class="form-control" id="dob" name="trip-start" placeholder="1999-12-23" min="" max="" />
-        </div>
+
+        <button type="submit" class="btn btn-dark mt-2">Sign Up</button>
+      </form>
     </div>
+  </div>
 </div>
 
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="*****@****.com/in/edu...." Required>
-    </div>
-    <div class="form-group">
-        <label for="pass1">Password</label>
-        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Create Your Password" Required>
-    </div>
-    <div class="form-group">
-        <label for="pass2">Confirm Password</label>
-        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password" Required>
-    </div>
-    <button type="submit" class="btn btn-outline-dark">Sign Up</button>
-</form>
-
-</div>
-</div>
-
-
-<br>
-
+<br />
+<br />
+<br />
 
 {% endblock %}

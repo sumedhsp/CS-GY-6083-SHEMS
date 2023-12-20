@@ -1,170 +1,503 @@
-{%   extends 'accounts/main.html'  %}
-{% load static %}
-
-
-
-{% block content %}
-
+{% extends 'accounts/main.html' %} {% load static %} {% block content %}
 
 <div class="container">
+  <!-- content display if user is authenticated (Need to remove not after front end) -->
+  {% if user_active %}
+    {% for message in messages %}
+    <br />
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      <strong>Message:</strong> {{ message }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
 
+  <br />
 
-
-
-<!-- content display if user is authenticated (Need to remove not after front end) -->
-{% if user.is_authenticated %}
-
-<br>
-
-<h3 class="display-4">Hola, {{fname}}!</h3>
-
-
-<br>
-
-<div class="row">
-  <div class="col-6 col-md-9">
-    <h3>Devices Under Service Location: ABC</h3>
-  </div>
-  <div class="col">
-    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#staticBackdrop"><i class="bi bi-plugin"></i> Add Device</button>
-    <!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Your New Device</h1>
-        <button type="button" class="btn btn-outline-dark" data-dismiss="modal" aria-label="Close">X</button>
+  <div class="card mb-4" style="width: 100%">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-auto">
+          <button
+            class="btn btn-dark"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapse1"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            My Service Location <i class="bi bi-geo-alt"></i>
+          </button>
+        </div>
+        <div class="col-md-auto ml-auto">
+          <button
+            class="btn btn-outline-dark"
+            type="button"
+            data-toggle="modal"
+            data-target="#editservicelocation"
+            aria-expanded="false"
+            aria-controls="editservicelocation"
+          >
+            Edit<i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
       </div>
-      <div class="modal-body">
-        <form action="">
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-              <label for="devtype">Device Type:</label>
-              <select id="devtype" name="devtype" class="form-select form-control" aria-label="Default select example" required>
-                <option value="1">Air Dryer</option>
-                <option value="2">Refrigerator</option>
-                <option value="3">Smart Bulb</option>
-              </select>
-            </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="modno">Model Number:</label>
-              <select id="modno" name="modno" class="form-select form-control" aria-label="Default select example" required>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
+    </div>
+    <!-- **************   Dynamic Display Details About Service Location ***************************** -->
 
-            </div>
-          </div>
+    <div class="collapse" id="collapse1">
+      <ul class="list-group list-group-flush">
+
+        <div class="row">
           
+          <div class="col">
 
-
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-              <label for="brand">Brand:</label>
-              <select id="brand" name="brand" class="form-select form-control" aria-label="Default select example" required>
-                <option value="1">LG</option>
-                <option value="2">Revlon</option>
-                <option value="3">Samsung</option>
-              </select>
-            </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-              <label for="relyear">Release Year:</label>
-              <input type="number" class="form-control" id="relyear" name="relyear" min="" max="" required/>
-            </div>
-    
-
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="manyear">Manufacture Year:</label>
-                <input type="number" class="form-control" id="manyear" name="manYear" min="" max="" required/>
-              </div>
-
-      
-    
-            </div>
+            <li class="list-group-item"><strong>Service Location Label:</strong>  {{serviceLocationObject.service_location_label}}</li>
+            <li class="list-group-item"><strong>Start Date:</strong> {{serviceLocationObject.start_date}}</li>
+            <li class="list-group-item"><strong>Unit No:</strong>  {{serviceLocationObject.unit_number}} </li>
+            <li class="list-group-item"><strong>Area(sqft):</strong>  {{ serviceLocationObject.apt_area }}</li>
+            <li class="list-group-item"><strong>Bedrooms No:</strong>  {{ serviceLocationObject.num_bedrooms}}</li>
+          
           </div>
 
+          <div class="col">
 
+            <li class="list-group-item"><Strong>Occupants No:</Strong>  {{ serviceLocationObject.num_occupants }}</li>
+            <li class="list-group-item"><strong>Address Line:</strong>  {{serviceLocationObject.address_line}}</li>
+            <li class="list-group-item"><strong>City:</strong>  {{serviceLocationObject.city}}</li>
+            <li class="list-group-item"><strong>State:</strong>  {{serviceLocationObject.state}}</li>
+            <li class="list-group-item"><strong>ZipCode:</strong> {{serviceLocationObject.zipcode}}</li>
 
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-success">Save</button>
           </div>
 
+        </div>
 
-
-
-        </form>
-      </div>
-
+        </ul>
     </div>
   </div>
-</div>
 
+  <br />
 
+  <div
+    class="p-3 bg-light rounded text-center"
+    style="
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    "
+  >
+    <div class="row">
+      <div class="col-md-auto">
+        <h3>Devices Under Service Location: {{ serviceLocationObject.service_location_label }}</h3>
+      </div>
+      <div class="col-md-auto ml-auto">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-toggle="modal"
+          data-target="#staticBackdrop"
+        >
+          <i class="bi bi-plugin"></i> Add Device
+        </button>
+        <!-- ***************************** Dynamic Add New Device ********************* -->
 
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="staticBackdrop"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                  Your New Device
+                </h1>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  X
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="{% url 'addDevices' %}" id="deviceAddForm" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="sl_id" value="{{serviceLocationObject.sl_id}}">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="devtype">Device Type:</label>
+                        <select
+                          id="devtype"
+                          name="devtype"
+                          class="form-select form-control"
+                          aria-label="Default select example"
+                          required
+                        >
+                        </select>
+                      </div>
+                    </div>
+                    {% comment %} <div class="col">
+                      <div class="form-group">
+                        <label for="modno">Model Number:</label>
+                        <select
+                          id="modno"
+                          name="modno"
+                          class="form-select form-control"
+                          aria-label="Default select example"
+                          required
+                        >
+                        </select>
+                      </div>
+                    </div> {% endcomment %}
+                  </div>
+                  {% comment %} <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="brand">Brand:</label>
+                        <select
+                          id="brand"
+                          name="brand"
+                          class="form-select form-control"
+                          aria-label="Default select example"
+                          required
+                        >
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="relyear">Release Year:</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="relyear"
+                          name="relyear"
+                          min=""
+                          max=""
+                          required
+                        />
+                      </div>
+                    </div> 
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="manyear">Manufacture Year:</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="manyear"
+                          name="manyear"
+                          min=""
+                          max=""
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div> {% endcomment %}
 
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark"
+                      data-dismiss="modal">
+                      Close
+                    </button>
+                    <button type="button" class="btn btn-success" onclick='submitForm()'>Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+      function loadDeviceTypes(){
+        fetch('/deviceType/')
+        .then(response => response.json())
+        .then(data => {
+
+          var devicetype = document.getElementById('devtype');
+
+          data.forEach(deviceType => {
+              var option = document.createElement('option');
+              option.value = deviceType.split(":")[0];
+              option.textContent = deviceType.split(":")[1];
+              devicetype.appendChild(option);
+          });
+
+        })
+      }
+
+      function submitForm(){
+        var form = document.getElementById("deviceAddForm");
+
+        form.submit();
+    }
+    
+    
+    loadDeviceTypes();
+
+    </script>
+
+    <br />
+    <!-- ***************************** Dynamic Display Devices for SL ********************* -->
+    <table class="table table-hover">
+      <tr>
+        <th>Device Type</th>
+        <th>Model Number</th>
+        <th>Brand</th>
+        <th>Release Year</th>
+        <th>Manufacture Year</th>
+      </tr>
+
+      {% for enrolledObject in enrolledDeviceObjects %}
+      <tr>
+        <td>{{enrolledObject.device_type}}</td>
+        <td>{{enrolledObject.model_number}}</td>
+        <td>{{enrolledObject.brand}}</td>
+        <td>{{enrolledObject.release_year}}</td>
+        <td>{{enrolledObject.manufacture_year}}</td>
+      </tr>
+
+      {% endfor %}
+
+    </table>
   </div>
-</div>
 
+  {% endif %}
 
+  <!-- ************************  Modal Box to Edit Service Locations ********************** -->
 
-<br>
-<table class="table table-hover">
+  <!-- Button trigger modal -->
 
-  <tr>
-      <th>Device Type</th>
-      <th>Model Number</th>
-      <th>Brand</th>
-      <th>Release Year</th>
-      <th>Manufacture Year</th>
-   </tr>
+  <div
+    class="modal fade"
+    id="editservicelocation"
+    tabindex="-1"
+    aria-labelledby="editservicelocationLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title fs-5" id="editservicelocationLabel">
+            Edit Service Location
+          </h3>
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            X
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- ***********************Edit service Location Form ************************* -->
+          <form action="{% url 'edit_service_location' %}" method='post' id='editServiceLocationForm'>
+            {% csrf_token %}
+            <input type=hidden name='sl_id' value='{{serviceLocationObject.sl_id}}'>
+            {% comment %} <div class="form-group">
+              <label for="slLabel">Service Location Label:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="slLabel"
+                name="slLabel"
+                placeholder="My Farm House/ Home 1"
+                minlength=""
+                maxlength=""
+                size=""
+                required
+              />
+            </div> {% endcomment %}
 
-   <tr>
-    <td>Air Dryer</td>
-    <td>AD_Revlon_22</td>
-    <td>Revlon</td>
-    <td>2022</td>
-    <td>2023</td>
-   </tr>
+            {% comment %} <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="start">Start Date:</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="start"
+                    name="start"
+                    value=""
+                    min=""
+                    max=""
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="unitno">Unit No:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="unitno"
+                    name="unitno"
+                    min="0"
+                    max=""
+                    required
+                  />
+                </div>
+              </div>
+            </div> {% endcomment %}
 
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="area">Area(sqft):</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="area"
+                    name="area"
+                    min="10"
+                    max="100"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="bedno">No of Bedrooms:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="bedno"
+                    name="bedno"
+                    min="1"
+                    max="100"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="occno">No of Occupants:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="occno"
+                    name="occno"
+                    min="1"
+                    max=""
+                    required
+                  />
+                </div>
+              </div>
+            </div>
 
-   <tr>
-    <td>Air Dryer</td>
-    <td>AD_Revlon_22</td>
-    <td>Revlon</td>
-    <td>2022</td>
-    <td>2023</td>
-   </tr>
+            {% comment %} <div class="form-group">
+              <label for="addline">Address Line:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="addline"
+                name="addline"
+                placeholder="1752 70th street"
+                minlength=""
+                maxlength=""
+                size=""
+                required
+              />
+            </div> {% endcomment %}
+{% comment %} 
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="city">City:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    name="city"
+                    placeholder="Brooklyn"
+                    minlength=""
+                    maxlength=""
+                    size=""
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="state">State:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="state"
+                    name="state"
+                    placeholder="New York"
+                    minlength="2"
+                    maxlength="20"
+                    size=""
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="zip">ZipCode:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="zip"
+                    name="zip"
+                    placeholder="11204"
+                    min=""
+                    max=""
+                    required
+                  />
+                </div>
+              </div>
+            </div> {% endcomment %}
 
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-dark"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-success" onclick='submitEditForm()'>Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-   <tr>
-    <td>Air Dryer</td>
-    <td>AD_Revlon_22</td>
-    <td>Revlon</td>
-    <td>2022</td>
-    <td>2023</td>
-   </tr>
+  <script>
 
-   </table>
+    function submitEditForm(){
+      var form = document.getElementById("editServiceLocationForm");
 
+      form.submit();
+  }
 
+  </script>
 
-{% endif %}
-
-<br><br><br><br><br><br>
+  <br /><br /><br /><br /><br /><br />
 </div>
 {% endblock %}
-

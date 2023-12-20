@@ -1,0 +1,256 @@
+{% extends 'accounts/main.html' %} {% load static %} {% block content %}
+
+<div class="container-fluid">
+  <!-- content display if user is authenticated (Need to remove not after front end) -->
+  {% if user_active %}
+
+  <div class="row">
+    <div
+      class="col-12 col-md-3 m-4 p-3 bg-light rounded text-center"
+      style="
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+          rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      "
+    >
+      <h4>Customize <i class="bi bi-eyedropper"></i></h4>
+      <br />
+      <img
+        src="{% static 'images/analytics.svg' %}"
+        class="card-img-top"
+        alt="Analytics"
+      />
+      <br />
+
+      <!-- ***************************** Dynamic Customize ********************* -->
+      <form action="{% url 'analytics' %}" method="post">
+
+        {% csrf_token %}
+        <input type=hidden name='customer_id' value = {{ customer_id }}>
+        <div class="form-group">
+          <label for="atype">Analysis Type <i class="bi bi-cursor"></i></label>
+          <select
+            id="atype"
+            name="atype"
+            class="form-select form-control"
+            aria-label="Default select example"
+            required
+            onchange='disableFilters()'
+          >
+            <option value="1">Device Type Vs Energy Consumption - 1</option>
+            <option value="2">SL based Time Vs Energy Consumption - 2</option>
+            <option value="3">Actual Energy Vs Avg Energy Compare - 3</option>
+            <option value="4">Energy Consumption Vs Device type Vs SL - 4</option>
+            <option value="5">Average Energy Prices in different Zipcodes - 5 </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sl_id"
+            >For Service Location <i class="bi bi-geo-alt-fill"></i
+          ></label>
+          <select
+            id="sl_id"
+            name="sl_id"
+            class="form-select form-control"
+            aria-label="Default select example"
+            required
+          >
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label for="year">Year <i class="bi bi-calendar3-event"></i></label>
+          <select
+            id="year"
+            name="year"
+            class="form-select form-control"
+            aria-label="Default select example"
+            required
+          >
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sdate">Start Date:</label>
+          <input
+            type="date"
+            class="form-control"
+            id="sdate"
+            name="sdate"
+            placeholder="1999-12-23"
+            min=""
+            max=""
+          />
+        </div>
+
+
+        <div class="form-group">
+          <label for="edate">End Date:</label>
+          <input
+            type="date"
+            class="form-control"
+            id="edate"
+            name="edate"
+            placeholder="2023-12-23"
+            min=""
+            max=""
+          />
+        </div>
+
+
+
+        <button type="submit" class="btn btn-dark mt-2">Analyse</button>
+      </form>
+    </div>
+
+
+
+    <div
+      class="col bg-light mt-4 mr-4 mb-4 p-3 rounded text-center"
+      style="
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+          rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      "
+    >
+      <h4>View Space <i class="bi bi-bar-chart-line-fill"></i></h4>
+          <!-- ***************************** Dynamic Display Devices for SL ********************* -->
+      <div>
+
+        <table class="table table-hover">
+          <tr>
+            <th>Analysis Type</th>
+            <!-- <th>Service Location</th>
+            <th>View</th> -->
+            <th>Year</th>
+          </tr>
+    
+        
+          <tr>
+            <td>{{aformdictionary.atype}}</td>
+            <!-- <td>{{aformdictionary.sloc}}</td>
+            <td>{{aformdictionary.timeview}}</td> -->
+            <td>{{aformdictionary.year}}</td>
+          </tr>
+    
+          </table>
+
+      </div>
+
+  <script>
+
+    function loadServiceLocations(){
+      fetch('/getServiceLocations/')
+      .then(response => response.json())
+      .then(data => {
+
+        var sl_id_dropdown = document.getElementById('sl_id');
+
+        data.forEach(sl_id => {
+            var option = document.createElement('option');
+            option.value = sl_id.split("-")[0];
+            option.textContent = sl_id.split("-")[1];
+            sl_id_dropdown.appendChild(option);
+        });
+
+      })
+
+    }
+
+    loadServiceLocations();
+
+    function selectElement(id, valueToSelect){
+      let element = document.getElementById(id);
+      element.value = valueToSelect;
+      
+    }
+
+    selectElement('atype', '{{ aformdictionary.atype }}');
+    selectElement('year', '{{ aformdictionary.year }}');
+    selectElement('sl_id', '{{ sl_id }}');
+
+    function disableFilters(){
+      var analysisType = document.getElementById('atype').value;
+
+      document.getElementById('year').disabled = false;
+
+      if (analysisType == 1){
+        document.getElementById('sdate').disabled = true;
+        document.getElementById('edate').disabled = true;
+        document.getElementById('year').disabled = false;
+      }
+      else if (analysisType == 4 ){
+        document.getElementById('year').disabled = false;
+        document.getElementById('sdate').disabled = true;
+        document.getElementById('edate').disabled = true;
+      }
+      else if (analysisType == 2 ){
+        document.getElementById('year').disabled = true;
+        document.getElementById('sdate').disabled = false;
+        document.getElementById('edate').disabled = false;
+      }
+      else if (analysisType == 3 ){
+        document.getElementById('year').disabled = true;
+        document.getElementById('sdate').disabled = false;
+        document.getElementById('edate').disabled = false;
+      }
+      else
+      {
+        document.getElementById('sdate').disabled = false;
+        document.getElementById('edate').disabled = false;
+        document.getElementById('year').disabled = false;
+      }
+    }
+
+    disableFilters();
+
+  </script>
+
+      <div id='chart-container'>
+        {{ chart_json_bar | safe }}
+    </div>
+    <div id='chart-container'>
+      {{ chart_json_line | safe }}
+  </div>
+  <div id='chart-container'>
+    {{ chart_json_stacked_bar | safe }}
+</div>
+<div id='chart-container'>
+  {{ chart_json_pie | safe }}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+  {% endif %}
+
+  <br /><br /><br /><br /><br /><br />
+</div>
+{% endblock %}
