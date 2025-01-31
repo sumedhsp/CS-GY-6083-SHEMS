@@ -35,7 +35,7 @@ SHEMS provides **interactive graphs** to help users understand their energy cons
 4. 🌍 **Energy Consumption Trends Across Devices & Locations**
 5. 🏷 **Average Energy Prices by Zip Code**
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Backend**: Django (Python)
 - **Database**: PostgreSQL
